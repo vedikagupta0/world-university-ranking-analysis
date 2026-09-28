@@ -69,9 +69,9 @@ PRETTY = {
 
 # Loading & cleaning
 # --------------------------------------------------------------------------- #
-def load_data(path: str, DATA_DIR = "dataset") -> pd.DataFrame:
+def load_data(path: str, ) -> pd.DataFrame:
     """Load the raw rankings CSV."""
-    return pd.read_csv(os.path.join(DATA_DIR, path))
+    return pd.read_csv(path)
 
 
 def _band_to_midpoint(value) -> float:
@@ -174,7 +174,7 @@ def pillar_correlations(df: pd.DataFrame) -> pd.Series:
 
 def elite_vs_rest(df: pd.DataFrame, n_elite: int = 100) -> pd.DataFrame:
     """Mean pillar scores for the top-N universities vs everyone else."""
-    df = df.sort_values("rank_num")
+    df = df.sort_values("rank")
     elite = df.head(n_elite)
     rest = df.iloc[n_elite:]
     out = pd.DataFrame(
@@ -192,7 +192,7 @@ def elite_vs_rest(df: pd.DataFrame, n_elite: int = 100) -> pd.DataFrame:
 # Plots
 # --------------------------------------------------------------------------- #
 def plot_top_universities(df: pd.DataFrame, out_dir: str, n: int = 20):
-    top = df.nsmallest(n, "rank_num")
+    top = df.nsmallest(n, "rank")
     plt.figure(figsize=(10, 8))
     ax = sns.barplot(
         data=top, y="university", x="scores_overall_num",
