@@ -67,7 +67,6 @@ PRETTY = {
 }
 
 
-# --------------------------------------------------------------------------- #
 # Loading & cleaning
 # --------------------------------------------------------------------------- #
 def load_data(path: str, DATA_DIR = "dataset") -> pd.DataFrame:
@@ -84,7 +83,7 @@ def _band_to_midpoint(value) -> float:
     if pd.isna(value):
         return np.nan
     s = str(value).strip().replace("=", "")
-    s = s.replace("\u2013", "-").replace("\u2014", "-")  # en/em dash -> hyphen
+    s = s.replace("\u2013", "-").replace("\u2014", "-")  # replace hyphens and em dashes with "-" 
     if s.endswith("+"):
         s = s[:-1]
     nums = re.findall(r"\d+\.?\d*", s)
@@ -100,10 +99,9 @@ def clean_data(df: pd.DataFrame) -> pd.DataFrame:
     # Only currently-listed institutions
     for flag in ("closed", "unaccredited", "disabled"):
         if flag in df.columns:
-            df = df[df[flag].fillna(False) != True]  # noqa: E712
+            df = df[df[flag].fillna(False) != True]  
 
-    df["scores_overall_num"] = df["scores_overall"].apply(_band_to_midpoint)
-    df['rank_num'] = df['rank'].apply(_band_to_midpoint)
+    df["scores_overall_num"] = df["scores_overall"].apply(_band_to_midpoint) # this 
     for col in SCORE_COLS:
         df[col] = pd.to_numeric(df[col], errors="coerce")
 
@@ -126,13 +124,13 @@ def clean_data(df: pd.DataFrame) -> pd.DataFrame:
              'aliases', 'closed', 'unaccredited', 'disabled', 'apply_link'], inplace=True, errors='ignore')
     df = df.rename(columns={"name": "university", "location": "country"})
     keep = [
-        "rank", "rank_num", "university", "country", "scores_overall_num",
+        "rank", "university", "country", "scores_overall_num",
         *SCORE_COLS, "students", "student_staff_ratio", "pc_intl_students", "pc_female",
     ]
     return df[keep].reset_index(drop=True)
 
 
-# --------------------------------------------------------------------------- #
+
 # Analysis
 # --------------------------------------------------------------------------- #
 def summary_stats(df: pd.DataFrame) -> pd.DataFrame:
@@ -189,7 +187,8 @@ def elite_vs_rest(df: pd.DataFrame, n_elite: int = 100) -> pd.DataFrame:
     return out
 
 
-# --------------------------------------------------------------------------- #
+
+
 # Plots
 # --------------------------------------------------------------------------- #
 def plot_top_universities(df: pd.DataFrame, out_dir: str, n: int = 20):
