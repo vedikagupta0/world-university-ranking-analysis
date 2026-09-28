@@ -47,7 +47,7 @@ jupyter notebook notebooks/world_university_rankings_eda_updated.ipynb
 ## Key findings
 
 * **Research is the dominant driver of overall score** (r = 0.90) — the strongest single predictor, ahead of Citations (0.86) and Teaching (0.81).
-* **Internationalization is a moderate but actionable trait** (r = 0.52) — weaker than the core academic pillars, but far more responsive to short-term policy than research capacity.
+* **Internationalization** may prove to be a good aspect to build (r = 0.52 with share of international students) — a moderate correlation, weaker than the core academic pillars, but student diversity can be grown through admissions and recruitment far more quickly than research capacity.
 * **The leading pack is tight**: Oxford (#1, 98.2) to Caltech (#7, 96.3) span less than 2 points.
 * **Breadth ≠ quality nationally**: the US (171 ranked universities) and UK (109) rank 7th and 10th on average score, behind smaller systems like the Netherlands, Switzerland, and Belgium.
 * **Student-staff ratio is not a useful quality signal** (r = −0.076), despite being a common admissions talking point.
